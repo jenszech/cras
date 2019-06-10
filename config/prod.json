@@ -1,0 +1,7 @@
+{
+  "cras": {
+    "mainSetting": {
+      "env": "prod"
+    }
+  }
+}
