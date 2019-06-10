@@ -8,6 +8,8 @@ var winston = require('./config/winston');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var cras = require('./public/javascripts/cras');
+
 var app = express();
 
 const { loggers } = require('winston')
@@ -43,7 +45,6 @@ app.use(function(err, req, res, next) {
 });
 
 //Starte Application
-logger.info('Starting Conference Room Assistent System');
-
+cras.init();  //Set Debug State
 
 module.exports = app;
