@@ -8,8 +8,9 @@ var winston = require('./config/winston');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const { DateTime } = require("ews-javascript-api");
 var cras = require('./public/javascripts/cras');
-
+var exchConn = require('./public/javascripts/exchangeConnector');
 var app = express();
 
 const { loggers } = require('winston')
@@ -46,5 +47,12 @@ app.use(function(err, req, res, next) {
 
 //Starte Application
 cras.init();  //Set Debug State
+
+//Test Stuff
+var ews = require('ews-javascript-api');
+var attendee =[ new ews.AttendeeInfo("j.zech@thalia.de")];
+exchConn.GetUserAvailability(attendee);
+
+exchConn.FindAppointments(DateTime.Now.Add(-1, "week"), DateTime.Now);
 
 module.exports = app;

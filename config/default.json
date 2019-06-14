@@ -2,6 +2,11 @@
   "cras": {
     "mainSetting": {
       "env": "default"
+    },
+    "exchange": {
+      "url": "<INSERT URL>",
+      "user": "<INSERT USERNAME>",
+      "password": "<INSERT PASSWORD>"
     }
   }
 }
