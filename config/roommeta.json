@@ -1,0 +1,110 @@
+{
+  "rooms": [
+    {
+      "idNr": 0,
+      "id":	"Raum_Textunes_Adlerh@tde.thalia.de",
+      "room": "Johannes Gutenberg",
+      "name": "R_TDE_B_Johannes Gutenberg_2.OG",
+      "tel": "Spinne: 02331-8046-4199",
+      "etage": "2 OG",
+      "plaetze": "8",
+      "ausstattung": [
+        "mob. VK-Wagen",
+        "Whiteboard"
+      ]
+    },
+    {
+      "idNr": 1,
+      "id":	"Raum_Textunes_Berlin@tde.thalia.de",
+      "name":	"R_TDE_B_Marie Curie_2.OG",
+      "room": "Marie Curie",
+      "tel": "Spinne: 02331-8046-4195",
+      "etage": "2 OG",
+      "plaetze": "16",
+      "ausstattung": [
+        "mob. VK-Wagen",
+        "m. Polycom-SW",
+        "Flipchart",
+        "Whiteboard"
+      ]
+    },
+    {
+      "idNr" : 3,
+      "id": "Raum_Textunes_Muenst@tde.thalia.de",
+      "name": "R_TDE_B_Ada Lovelace_VK_3. OG",
+      "room": "Ada Lovelace",
+      "tel": "Spinne: 02331-8046-4197",
+      "etage": "3 OG",
+      "plaetze": "10",
+      "ausstattung": [
+        "Polycom-VK",
+        "Apple TV",
+        "Flipchart",
+        "Pinnwand"
+      ]
+    },
+    {
+      "idNr": "4",
+      "id": "Raum_Textunes_Wuthoe@tde.thalia.de",
+      "name": "R_TDE_B_Alan Turing_3.OG",
+      "room": "AlanTuring",
+      "Telefon (02331-8046-)": "Spinne: 030 - 6677302-57",
+      "etage": "3 OG",
+      "plaetze": "4",
+      "ausstattung": [
+        "Schreibtisch",
+        "LAN & WLAN",
+        "Tisch für 2-3 P.",
+        "Beamer"
+      ]
+    },
+    {
+      "idNr": 5,
+      "id": "Raum_Textunes_Hagen@tde.thalia.de",
+      "name": "R_TDE_B_Nikola Tesla_4.OG",
+      "room": "Nikola Tesla",
+      "tel": "Spinne: 02331-8046-4196",
+      "etage": "4 OG",
+      "plaetze": "12",
+      "ausstattung": [
+        "Bildschirm inkl. Kamera",
+        "Apple TV",
+        "Flipchart",
+        "Whiteboard"
+      ]
+    },
+    {
+      "idNr": 6,
+      "id":	"",
+      "name": "R_TDE_B_Hedy Lamarr_4.OG",
+      "room": "Hedy Lamarr",
+      "tel": "Spinne: 02331-8046-4198",
+      "etage": "4 OG",
+      "plaetze": "4",
+      "ausstattung": [
+        "Bildschirm inkl. Kamera",
+        "Apple TV",
+        "Flipchart",
+        "Whiteboard"
+      ]
+    },
+    {
+      "idNr": 7,
+      "id":	"",
+      "name": "R_TDE_B_Grace Hopper_4.OG",
+      "room": "Grace Hopper",
+      "etage": "4 OG",
+      "plaetze": "6",
+      "ausstattung": " bisher keine Technik vorhanden "
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+

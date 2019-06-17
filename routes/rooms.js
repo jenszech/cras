@@ -5,6 +5,7 @@ const logger = loggers.get('appLogger');
 var exchConn = require('../public/javascripts/exchangeConnector');
 var availFactory = require('../public/javascripts/roomAvailabilityFactory');
 var roomsFactory = require('../public/javascripts/roomsFactory');
+const roomsMeta = require('../config/roommeta.json');
 var ews = require('ews-javascript-api');
 
 const DEFAULT_ROOM_USER = "V_TDE_B_Raumliste@tde.thalia.de";
@@ -19,7 +20,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/id/:id', function(req, res, next) {
   var id = req.params.id
 
   var attendee =[ new ews.AttendeeInfo(id)];
@@ -29,6 +30,10 @@ router.get('/:id', function(req, res, next) {
   }, function (errors) {
       logger.debug("Error: ", errors);
   });
+});
+
+router.get('/meta', function(req, res, next) {
+    res.json(roomsMeta.rooms);
 });
 
 module.exports = router;
