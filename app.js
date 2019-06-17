@@ -7,6 +7,7 @@ var winston = require('./config/winston');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var roomsRouter = require('./routes/rooms');
 
 const { DateTime } = require("ews-javascript-api");
 var cras = require('./public/javascripts/cras');
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/rooms', roomsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -49,10 +51,11 @@ app.use(function(err, req, res, next) {
 cras.init();  //Set Debug State
 
 //Test Stuff
-var ews = require('ews-javascript-api');
-var attendee =[ new ews.AttendeeInfo("j.zech@thalia.de")];
-exchConn.GetUserAvailability(attendee);
-
-exchConn.FindAppointments(DateTime.Now.Add(-1, "week"), DateTime.Now);
+// var ews = require('ews-javascript-api');
+// var attendee =[ new ews.AttendeeInfo("j.zech@thalia.de")];
+// exchConn.GetRoomLists();
+// exchConn.GetRooms("V_TDE_B_Raumliste@tde.thalia.de");
+//
+// exchConn.FindAppointments(DateTime.Now.Add(-1, "week"), DateTime.Now);
 
 module.exports = app;

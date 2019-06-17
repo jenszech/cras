@@ -1,7 +1,7 @@
 const config = require('config');
 const { loggers } = require('winston');
 const logger = loggers.get('appLogger');
-const { ExchangeService, ExchangeVersion, WebCredentials, Uri, DateTime, CalendarView, WellKnownFolderName, EwsLogging } = require("ews-javascript-api");
+const { ExchangeService, ExchangeVersion, WebCredentials, Uri, DateTime, CalendarView, WellKnownFolderName, EwsLogging, EmailAddress } = require("ews-javascript-api");
 EwsLogging.DebugLogEnabled = false;
 
 var myconfig = config.get('cras.exchange');
@@ -18,12 +18,22 @@ exch.Url = new ews.Uri(myconfig.url); // you can also use exch.AutodiscoverUrl
 exports.GetUserAvailability = function(attendeeInfo) {
     //create timewindow object o request avaiability suggestions for next 48 hours, DateTime and TimeSpan object is created to mimic portion of .net datetime/timespan object using momentjs
     var timeWindow = new ews.TimeWindow(ews.DateTime.Now, ews.DateTime.Now.AddDays(2));
-    exch.GetUserAvailability(attendeeInfo, timeWindow, ews.AvailabilityData.FreeBusyAndSuggestions)
-        .then(function (availabilityResponse) {
-            logger.info("Successful request");
+    return exch.GetUserAvailability(attendeeInfo, timeWindow, ews.AvailabilityData.FreeBusyAndSuggestions);
+}
+
+exports.GetRoomLists = function() {
+    exch.GetRoomLists()
+        .then(function (roomListResponse) {
+          var json = JSON.stringify(roomListResponse);
+            logger.info("Successful room list request" + json);
         }, function (errors) {
             logger.debug("Error: ", errors);
         });
+}
+
+exports.GetRooms = function(name) {
+  var emailAddress = new EmailAddress(name)
+    return exch.GetRooms(emailAddress);
 }
 
 exports.FindAppointments = function(start, end) {

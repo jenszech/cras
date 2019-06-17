@@ -3,7 +3,7 @@ const { createLogger, loggers, format, transports } = require('winston');
 
 var options = {
     file: {
-        level: 'info',
+        level: 'debug',
         filename: `${appRoot}/logs/app.log`,
         handleExceptions: true,
         humanReadableUnhandledException: true,
