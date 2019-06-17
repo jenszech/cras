@@ -1,7 +1,8 @@
 {
   "cras": {
     "mainSetting": {
-      "env": "default"
+      "env": "default",
+      "prt": "3001"
     },
     "exchange": {
       "url": "<INSERT URL>",
