@@ -2,7 +2,7 @@
   "cras": {
     "mainSetting": {
       "env": "default",
-      "prt": "3001"
+      "port": "3001"
     },
     "exchange": {
       "url": "<INSERT URL>",
