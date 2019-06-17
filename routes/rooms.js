@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const { loggers } = require('winston');
+const logger = loggers.get('appLogger');
 var exchConn = require('../public/javascripts/exchangeConnector');
 var availFactory = require('../public/javascripts/roomAvailabilityFactory');
 var roomsFactory = require('../public/javascripts/roomsFactory');
