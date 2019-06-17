@@ -8,10 +8,13 @@ var app = require('../app');
 var debug = require('debug')('cras:server');
 var http = require('http');
 
+const config = require('config');
+var myconfig = config.get('cras.mainSetting');
+
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || myconfig.port);
 app.set('port', port);
 
 /**
