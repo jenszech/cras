@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var exchConn = require('../public/javascripts/exchangeConnector');
 var availFactory = require('../public/javascripts/roomAvailabilityFactory');
+var roomsFactory = require('../public/javascripts/roomsFactory');
 var ews = require('ews-javascript-api');
 
 const DEFAULT_ROOM_USER = "V_TDE_B_Raumliste@tde.thalia.de";
@@ -10,7 +11,7 @@ const DEFAULT_ROOM_USER = "V_TDE_B_Raumliste@tde.thalia.de";
 router.get('/', function(req, res, next) {
   exchConn.GetRooms(DEFAULT_ROOM_USER)
   .then(function (roomsResponse) {
-      res.json(roomsResponse)
+      res.json(roomsFactory.RoomsFrom(roomsResponse));
   }, function (errors) {
       logger.debug("Error: ", errors);
   });
