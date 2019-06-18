@@ -75,8 +75,13 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
     appointments.push(freeAppointment)
   }
 
+  var currentDate = new Date();
+  currentDate.setHours(currentDate.getHours());
+  let formattedTimeString = currentDate.getHours() + ":" + currentDate.getMinutes();
+
   return {
         roomName: roomMeta.room,
+        currentTime: formattedTimeString,
         appointments: appointments
       };
 }
