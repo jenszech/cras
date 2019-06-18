@@ -11,6 +11,10 @@
       "ausstattung": [
         "mob. VK-Wagen",
         "Whiteboard"
+      ],
+      "ausstattungId": [
+        "typ_mobVK",
+        "typ_whiteboard"
       ]
     },
     {
@@ -26,6 +30,12 @@
         "m. Polycom-SW",
         "Flipchart",
         "Whiteboard"
+      ],
+      "ausstattungId": [
+        "typ_mobVK",
+        "typ_mobPolycom",
+        "typ_flipchart",
+        "typ_whiteboard"
       ]
     },
     {
@@ -41,6 +51,12 @@
         "Apple TV",
         "Flipchart",
         "Pinnwand"
+      ],
+      "ausstattung": [
+        "typ_flipchart",
+        "typ_polycom",
+        "typ_appleTv",
+        "typ_pinnwand"
       ]
     },
     {
@@ -56,6 +72,10 @@
         "LAN & WLAN",
         "Tisch für 2-3 P.",
         "Beamer"
+      ],
+      "ausstattungId": [
+        "typ_desktop",
+        "typ_beamer"
       ]
     },
     {
@@ -71,6 +91,14 @@
         "Apple TV",
         "Flipchart",
         "Whiteboard"
+      ],
+      "ausstattungId": [
+        "typ_flipchart",
+        "typ_whiteboard",
+        "typ_appleTv",
+        "typ_pinnwand",
+        "typ_tv",
+        "typ_camera"
       ]
     },
     {
@@ -97,6 +125,19 @@
       "plaetze": "6",
       "ausstattung": " bisher keine Technik vorhanden "
     }
+  ],
+  "types": [
+    "typ_mobVK",
+    "typ_mobPolycom",
+    "typ_flipchart",
+    "typ_whiteboard",
+    "typ_polycom",
+    "typ_appleTv",
+    "typ_pinnwand",
+    "typ_desktop",
+    "typ_beamer",
+    "typ_tv",
+    "typ_camera"
   ]
 }
 
