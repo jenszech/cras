@@ -1,6 +1,18 @@
 const { loggers } = require('winston');
 const logger = loggers.get('appLogger');
 
+function isCurrentAppointment(startDate, endDate) {
+
+    var currentDate = new Date();
+    currentDate.setHours(currentDate.getHours() + 2);
+
+    if (currentDate > startDate && currentDate < endDate ){
+      return true;
+    } else{
+      return false;
+    }
+}
+
 exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
 
   var appointments = [];
@@ -28,7 +40,8 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
           startTime: lastEndDate,
           endTime: event.startTime.originalDateInput,
           title: "Frei",
-          blocked: false  
+          blocked: false,
+          isCurrent: isCurrentAppointment(new Date(lastEndDate), new Date(event.startTime.originalDateInput))
         }
         appointments.push(freeAppointment)
     }
@@ -38,7 +51,8 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
       startTime: event.startTime.originalDateInput,
       endTime: event.endTime.originalDateInput,
       title: event.details.subject,
-      blocked: true
+      blocked: true,
+      isCurrent: isCurrentAppointment(new Date(event.startTime.originalDateInput), new Date(event.endTime.originalDateInput))
     }
     appointments.push(appointment);
 
@@ -48,11 +62,13 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
 
   // add free slot at the end (if neccessary)
   if (lastEndDate.getTime() < endWorkingDate.getTime()) {
+    var isNext = false;
     var freeAppointment = {
       startTime: lastEndDate,
       endTime: endWorkingDate,
       title: "Frei",
-      blocked: false  
+      blocked: false,
+      isCurrent: isCurrentAppointment(new Date(lastEndDate), new Date(endWorkingDate))
     }
     appointments.push(freeAppointment)
   }
