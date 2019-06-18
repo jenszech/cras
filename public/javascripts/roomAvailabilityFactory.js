@@ -27,8 +27,9 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
         var freeAppointment = {
           startTime: lastEndDate,
           endTime: event.startTime.originalDateInput,
+          displayTime: FormatDisplayDates(lastEndDate, new Date(event.endTime.originalDateInput)),
           title: "Frei",
-          blocked: false  
+          blocked: false
         }
         appointments.push(freeAppointment)
     }
@@ -37,6 +38,7 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
     var appointment = {
       startTime: event.startTime.originalDateInput,
       endTime: event.endTime.originalDateInput,
+      displayTime: FormatDisplayDates(new Date(event.startTime.originalDateInput), new Date(event.endTime.originalDateInput)),
       title: event.details.subject,
       blocked: true
     }
@@ -51,8 +53,9 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
     var freeAppointment = {
       startTime: lastEndDate,
       endTime: endWorkingDate,
+      displayTime: FormatDisplayDates(lastEndDate, endWorkingDate),
       title: "Frei",
-      blocked: false  
+      blocked: false
     }
     appointments.push(freeAppointment)
   }
@@ -61,4 +64,18 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
         roomName: roomMeta.room,
         appointments: appointments
       };
+}
+
+FormatDisplayDates = function(startDate, endDate) {
+  var formattedStart = FormattedHours(startDate) + ':' + FormattedMinutes(endDate)
+  var formattedEnd = FormattedHours(endDate) + ':' + FormattedMinutes(endDate)
+  return formattedStart + ' bis ' + formattedEnd
+}
+
+FormattedHours = function(date) {
+  return date.getHours() - 2 < 10 ? "0" + date.getHours() - 2 : date.getHours();
+}
+
+FormattedMinutes = function(date) {
+   return date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
 }
