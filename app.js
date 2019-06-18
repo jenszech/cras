@@ -8,6 +8,7 @@ var winston = require('./config/winston');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var roomsRouter = require('./routes/rooms');
+var metaTypesRouter = require('./routes/metaTypes');
 
 const {DateTime} = require("ews-javascript-api");
 var cras = require('./public/javascripts/cras');
@@ -34,6 +35,7 @@ app.use(cors({origin: '*'}));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/rooms', roomsRouter);
+app.use('/metaTypes', metaTypesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

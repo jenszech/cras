@@ -1,0 +1,15 @@
+{
+  "types": [
+    "typ_mobVK",
+    "typ_mobPolycom",
+    "typ_flipchart",
+    "typ_whiteboard",
+    "typ_polycom",
+    "typ_appleTv",
+    "typ_pinnwand",
+    "typ_desktop",
+    "typ_beamer",
+    "typ_tv",
+    "typ_camera"
+  ]
+}
