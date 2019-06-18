@@ -103,7 +103,7 @@
     },
     {
       "idNr": 6,
-      "id":	"",
+      "id":	"raum_b_hamburg@tde.thalia.de",
       "name": "R_TDE_B_Hedy Lamarr_4.OG",
       "room": "Hedy Lamarr",
       "tel": "Spinne: 02331-8046-4198",
@@ -114,16 +114,29 @@
         "Apple TV",
         "Flipchart",
         "Whiteboard"
+      ],
+      "ausstattungId": [
+        "typ_tv",
+        "typ_camera",
+        "typ_flipchart",
+        "typ_whiteboard",
+        "typ_appleTv"
       ]
     },
     {
       "idNr": 7,
-      "id":	"",
+      "id":	"raum-textunes-konrad@tde.thalia.de",
       "name": "R_TDE_B_Grace Hopper_4.OG",
       "room": "Grace Hopper",
       "etage": "4 OG",
       "plaetze": "6",
-      "ausstattung": " bisher keine Technik vorhanden "
+      "ausstattung": [
+        "Whiteboard"
+      ],
+      "ausstattungId": [
+        "typ_desktop",
+        "typ_whiteboard"
+      ]
     }
   ],
   "types": [
@@ -140,8 +153,6 @@
     "typ_camera"
   ]
 }
-
-
 
 
 
