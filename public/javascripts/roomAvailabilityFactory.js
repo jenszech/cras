@@ -39,6 +39,7 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
         var freeAppointment = {
           startTime: lastEndDate,
           endTime: event.startTime.originalDateInput,
+          displayTime: FormatDisplayDates(lastEndDate, new Date(event.startTime.originalDateInput)),
           title: "Frei",
           blocked: false,
           isCurrent: isCurrentAppointment(new Date(lastEndDate), new Date(event.startTime.originalDateInput))
@@ -50,6 +51,7 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
     var appointment = {
       startTime: event.startTime.originalDateInput,
       endTime: event.endTime.originalDateInput,
+      displayTime: FormatDisplayDates(new Date(event.startTime.originalDateInput), new Date(event.endTime.originalDateInput)),
       title: event.details.subject,
       blocked: true,
       isCurrent: isCurrentAppointment(new Date(event.startTime.originalDateInput), new Date(event.endTime.originalDateInput))
@@ -62,10 +64,10 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
 
   // add free slot at the end (if neccessary)
   if (lastEndDate.getTime() < endWorkingDate.getTime()) {
-    var isNext = false;
     var freeAppointment = {
       startTime: lastEndDate,
       endTime: endWorkingDate,
+      displayTime: FormatDisplayDates(lastEndDate, endWorkingDate),
       title: "Frei",
       blocked: false,
       isCurrent: isCurrentAppointment(new Date(lastEndDate), new Date(endWorkingDate))
@@ -77,4 +79,18 @@ exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
         roomName: roomMeta.room,
         appointments: appointments
       };
+}
+
+FormatDisplayDates = function(startDate, endDate) {
+  var formattedStart = FormattedHours(startDate) + ':' + FormattedMinutes(startDate)
+  var formattedEnd = FormattedHours(endDate) + ':' + FormattedMinutes(endDate)
+  return formattedStart + ' bis ' + formattedEnd
+}
+
+FormattedHours = function(date) {
+  return date.getHours() - 2 < 10 ? "0" + date.getHours() - 2 : date.getHours() - 2;
+}
+
+FormattedMinutes = function(date) {
+   return date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
 }
