@@ -1,4 +1,4 @@
-exports.RoomAvailabilityFrom = function(uservailability) {
+exports.RoomAvailabilityFrom = function(uservailability, roomMeta) {
   var appointments = [];
   uservailability.attendeesAvailability.responses[0].calendarEvents.forEach(function(event){
     var appointment = {
@@ -9,7 +9,7 @@ exports.RoomAvailabilityFrom = function(uservailability) {
     appointments.push(appointment);
   });
   return {
-        roomName: "Raum Marie",
+        roomName: roomMeta.room,
         appointments: appointments
       };
 }

@@ -26,7 +26,8 @@ router.get('/:id', function(req, res, next) {
   var attendee =[ new ews.AttendeeInfo(id)];
   exchConn.GetUserAvailability(attendee)
   .then(function (availabilityResponse) {
-      res.json(availFactory.RoomAvailabilityFrom(availabilityResponse));
+      var roomMetaInfo = roomMetaProvider.GetRoomMetaForId(id)
+      res.json(availFactory.RoomAvailabilityFrom(availabilityResponse, roomMetaInfo));
   }, function (errors) {
       logger.debug("Error: ", errors);
   });
