@@ -57,11 +57,8 @@ app.use(function (err, req, res, next) {
 cras.init();  //Set Debug State
 
 //Test Stuff
-// var ews = require('ews-javascript-api');
-// var attendee =[ new ews.AttendeeInfo("j.zech@thalia.de")];
-// exchConn.GetRoomLists();
-// exchConn.GetRooms("V_TDE_B_Raumliste@tde.thalia.de");
-//
-// exchConn.FindAppointments(DateTime.Now.Add(-1, "week"), DateTime.Now);
+//Uncomment the following line to see a Working example to create an Appointpoint. 
+//Edit exchangeConnector.js for the right time window of your appointment
+//exchConn.CreateAppointment("Raum_Textunes_Adlerh@tde.thalia.de","Raum Johannes Gutenberg");
 
 module.exports = app;

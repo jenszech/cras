@@ -1,7 +1,7 @@
 const config = require('config');
 const { loggers } = require('winston');
 const logger = loggers.get('appLogger');
-const { ExchangeService, ExchangeVersion, WebCredentials, Uri, DateTime, CalendarView, WellKnownFolderName, EwsLogging, EmailAddress } = require("ews-javascript-api");
+const { ExchangeService, ExchangeVersion, WebCredentials, Uri, DateTime, CalendarView, WellKnownFolderName, EwsLogging, EmailAddress, Appointment, SendInvitationsMode } = require("ews-javascript-api");
 EwsLogging.DebugLogEnabled = false;
 
 var myconfig = config.get('cras.exchange');
@@ -54,4 +54,40 @@ exports.FindAppointments = function(start, end) {
     }, function (error) {
         logger.error(error)
     })
+}
+
+
+
+
+
+
+exports.CreateAppointment = function(roomId, roomName) {
+
+        var lastEndDate = new Date();                     // today
+        lastEndDate.setHours(15);                          // working hours start
+        lastEndDate.setMinutes(0);
+        lastEndDate.setSeconds(0);
+        lastEndDate.setMilliseconds(0)
+        lastEndDate.setHours(lastEndDate.getHours() + 2); // timezone fix!
+        var endWorkingDate = new Date();                  // today
+        endWorkingDate.setHours(16);                      // working hours end
+        endWorkingDate.setMinutes(0);
+        endWorkingDate.setSeconds(0);
+        endWorkingDate.setMilliseconds(0)
+        endWorkingDate.setHours(endWorkingDate.getHours() + 2);
+        
+        var appointment = new ews.Appointment(exch);
+
+        appointment.Subject = "Besprechung-Blocker";
+        appointment.Body = new ews.TextBody("Dies ist ein Blocker, für eine Besprechung, der direkt Vor-Ort eingestellt wurde.");
+        appointment.Start = new ews.DateTime("20190618T160000");
+        appointment.End = appointment.Start.Add(1, "h");
+        appointment.Location = roomName;
+        appointment.RequiredAttendees.Add(roomId);
+
+        appointment.Save(ews.SendInvitationsMode.SendToAllAndSaveCopy).then(function () {
+            logger.debug("done - check email");
+        }, function (error) {
+            logger.debug(error);
+        });
 }
