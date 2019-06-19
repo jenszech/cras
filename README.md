@@ -3,6 +3,12 @@ Conference room assisting system
 
 Dieses Projekt stellt einen Node.js Server bereit der alle Daten für ein Konferenzraum Anzeigesystem verwaltet
 
+Das Projekt setzt sich dabei aus mehreren Modulen zusammen:
+* **cras** - Dieses Projekt stellt das Backend bereit
+* **[kras](https://github.com/julienP88/kras)** - Ein responsives Angular Frontend
+* Optional **[crasBadgeIt](https://github.com/jenszech/crasBadgeIt)** - Ein microcontroller projekt for small ePaper devices
+* Optional **[crasAndroidViewer](https://github.com/jenszech/crasAndroidViewer)** - Eine Android App mit einem einfachem fullscreen Webviewer
+
 ## Features
 
 * Abrufen der Raumbelegung von einem Exchange Server
