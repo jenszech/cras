@@ -5,7 +5,14 @@ Dieses Projekt stellt einen Node.js Server bereit der alle Daten für ein Konfer
 
 ## Features
 
-* tbd. 
+* Abrufen der Raumbelegung von einem Exchange Server
+* Bereitstellung von Rest Schnittstellen
+
+### Roadmap
+
+* Cachen der Raumbelegung zur Performancesteigerung
+* Schnelle Buchung am Raum Display 
+
     
 Für geplante Features und Änderungen siehe [CHANGELOG.md](CHANGELOG.md)
      
@@ -15,36 +22,11 @@ Diese Anleitung zeigt anhand einer Beispiel Installation auf dem Raspberry wie d
 
 ### Prerequisites
 
-* Raspberry Pi 3 - Im folgenden Beispiel wird die Einrichtung an Hand eines Raspberry PI 3 mit bereits installiertem Rasbian beschrieben.
+* Linux umgebung (z.B Raspberry Pi 3 mit Raspbian)
 * git
 * node.js
 
-#### Raspberry
-Basis ist eine Standard Rasbian Stretch Lite installation
-* Download Rasbian: https://cras.raspberrypi.org/downloads/raspbian/
-
-Nach der Ersteinrichtung folgt die Anpassung:
-
-```
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install vim
-sudo apt-get install nano
-```
-
-#### Installation von git
-```
-sudo apt-get update
-sudo apt-get install git
-```
-
-#### Installation von node.js
-```
-sudo apt-get update
-curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
-sudo apt-get install -y nodejs
-node -v
-```
+siehe: [Raspberry Setup](https://github.com/jenszech/cras/wiki/System-setup-on-Raspberry-Pi-example)
 
 ### Installation
 #### Installation des CRAS Projekts
@@ -88,9 +70,15 @@ Die Environment Konfiguration enthalten dagegen alle lokalen Anpassungen inkl. P
 #### Default.json
 ```json
 {
-  "CRAS": {
+  "cras": {
     "mainSetting": {
- 
+      "env": "default",
+      "port": "3001"
+    },
+    "exchange": {
+      "url": "<INSERT URL>",
+      "user": "<INSERT USERNAME>",
+      "password": "<INSERT PASSWORD>"
     }
   }
 }
@@ -99,7 +87,11 @@ Die Environment Konfiguration enthalten dagegen alle lokalen Anpassungen inkl. P
 #### prod.json Example
 ```json
 {
-  
+    "cras": {
+      "mainSetting": {
+        "env": "prod",
+      }
+    }
 }
 ```
 
@@ -141,7 +133,12 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Jens Zech** - *Initial work* - [jzech](https://github.com/jzech)
+* **Jens Zech** - *Initial work* - [GitHub Profil](https://github.com/jenszech)
+* **fadoscha** - *Team Member* - [GitHub Profil](https://github.com/fadoscha)
+* **s-wolff** - *Team Member* - [GitHub Profil](https://github.com/s-wolff)
+* **Vladimir Ignjatijevic** - *Team Member* - [GitHub Profil](https://github.com/vignjatijevic)
+* **Anna Utlik** - *Team Member* - [GitHub Profil](https://github.com/anna-utlik)
+
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -150,3 +147,6 @@ See also the list of [contributors](https://github.com/your/project/contributors
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 
+
+##Weitere Infos:
+[Wiki - Raspberry Setup](https://github.com/jenszech/cras/wiki/System-setup-on-Raspberry-Pi-example)

@@ -6,7 +6,6 @@ var morgan = require('morgan');
 var winston = require('./config/winston');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var roomsRouter = require('./routes/rooms');
 var metaTypesRouter = require('./routes/metaTypes');
 
@@ -33,7 +32,6 @@ var cors = require('cors');
 app.use(cors({origin: '*'}));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/rooms', roomsRouter);
 app.use('/metaTypes', metaTypesRouter);
 
@@ -55,10 +53,5 @@ app.use(function (err, req, res, next) {
 
 //Starte Application
 cras.init();  //Set Debug State
-
-//Test Stuff
-//Uncomment the following line to see a Working example to create an Appointpoint. 
-//Edit exchangeConnector.js for the right time window of your appointment
-//exchConn.CreateAppointment("Raum_Textunes_Adlerh@tde.thalia.de","Raum Johannes Gutenberg");
 
 module.exports = app;
