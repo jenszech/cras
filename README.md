@@ -18,7 +18,7 @@ Das Projekt setzt sich dabei aus mehreren Modulen zusammen:
 
 * Cachen der Raumbelegung zur Performancesteigerung
 * Schnelle Buchung am Raum Display 
-
+* SUpport der GetOut Idee (https://youtu.be/VvtHPAc8T2g)
     
 Für geplante Features und Änderungen siehe [CHANGELOG.md](CHANGELOG.md)
      
