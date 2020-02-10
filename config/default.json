@@ -2,7 +2,8 @@
   "cras": {
     "mainSetting": {
       "env": "default",
-      "port": "3001"
+      "port": "3001",
+      "default_room_user": "example@mail.com"
     },
     "exchange": {
       "url": "<INSERT URL>",

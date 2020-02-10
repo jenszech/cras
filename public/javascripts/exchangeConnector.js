@@ -18,7 +18,7 @@ exch.Url = new ews.Uri(myconfig.url); // you can also use exch.AutodiscoverUrl
 exports.GetUserAvailability = function(attendeeInfo) {
     //create timewindow object o request avaiability suggestions for next 48 hours, DateTime and TimeSpan object is created to mimic portion of .net datetime/timespan object using momentjs
     var timeWindow = new ews.TimeWindow(ews.DateTime.Now, ews.DateTime.Now.AddDays(1));
-    return exch.GetUserAvailability(attendeeInfo, timeWindow, ews.AvailabilityData.FreeBusyAndSuggestions);
+    return exch.GetUserAvailability(attendeeInfo, timeWindow, ews.AvailabilityData.FreeBusy);
 }
 
 exports.GetRoomLists = function() {

@@ -1,0 +1,16 @@
+{
+  "replacement_tag": [
+    {
+      "key": "(privat)",
+      "newTitle": "Privater Termin"
+    },
+    {
+      "key": "1.VG",
+      "newTitle": "1. Vorstellungs Gespräch"
+    },
+    {
+      "key": "2.VG",
+      "newTitle": "2. Vorstellungs Gespräch"
+    }
+  ]
+}

@@ -4,24 +4,24 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('cras:server');
-var http = require('http');
+let app = require('../app');
+let debug = require('debug')('cras:server');
+let http = require('http');
 
 const config = require('config');
-var myconfig = config.get('cras.mainSetting');
+let myconfig = config.get('cras.mainSetting');
 
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT || myconfig.port);
+let port = normalizePort(process.env.PORT || myconfig.port);
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -36,7 +36,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  let port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
