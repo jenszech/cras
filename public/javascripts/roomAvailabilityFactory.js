@@ -126,7 +126,7 @@ FormattedCurrentTime = function () {
  * @return {string}
  */
 ExtractFormatedName = function (title) {
-    let match = title.match(/^[A-Z]+, [A-Z]+/i);
+    let match = title.match(/^[A-Zäöüß]+, [A-Zäöüß]+/i);
     if (match == null) return "";
     return match[0];
 };
