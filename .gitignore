@@ -3,3 +3,4 @@ package-lock.json
 logs/
 node_modules/
 config/prod.json
+roommeta.json

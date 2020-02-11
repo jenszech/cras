@@ -1,0 +1,38 @@
+{
+  "rooms": [
+    {
+      "idNr": 0,
+      "id": "<INSERT EXCHANGE ROOM ID: raum@orga.com>",
+      "room": "Custom room name",
+      "name": "<EXCHANGE ROOM NAME>",
+      "tel": "<Number of room conferenz telefon>",
+      "etage": "<etage>",
+      "plaetze": "size",
+      "ausstattung": [
+        "typ_mobVK",
+        "typ_whiteboard"
+      ]
+    },
+    {
+      "idNr": 1,
+      "id": "<INSERT EXCHANGE ROOM ID: raum@orga.com>",
+      "room": "Custom room name",
+      "name": "<EXCHANGE ROOM NAME>",
+      "tel": "<Number of room conferenz telefon>",
+      "etage": "<etage>",
+      "plaetze": "size",
+      "ausstattung": [
+        "typ_mobVK",
+        "typ_mobPolycom",
+        "typ_flipchart",
+        "typ_whiteboard",
+        "typ_appleTv",
+        "typ_pinnwand",
+        "typ_desktop",
+        "typ_beamer",
+        "typ_tv",
+        "typ_camera"
+      ]
+    }
+  ]
+}
