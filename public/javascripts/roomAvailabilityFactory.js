@@ -1,62 +1,74 @@
 //const { loggers } = require('winston');
 //const logger = loggers.get('appLogger');
 const staticReplaceJSON = require('../../config/title_replacement.json');
+const config = require('config');
+// noinspection JSUnresolvedFunction
+let myconfig = config.get('cras.mainSetting');
+
+function createTimeObject(hour) {
+    let timeObj = new Date();
+    timeObj.setHours(hour);
+    timeObj.setMinutes(0);
+    timeObj.setSeconds(0);
+    timeObj.setMilliseconds(0);
+    // timezone fix!
+    timeObj.setHours(timeObj.getHours() + 2);
+    return timeObj;
+}
+
+function createFreeAppointment(startTime, endTime) {
+    return {
+        startTime: startTime,
+        endTime: endTime,
+        displayTime: FormatDisplayDates(startTime, endTime),
+        title: "Frei",
+        blocked: false,
+        isCurrent: isCurrentAppointment(startTime, endTime)
+    };
+}
 
 function isCurrentAppointment(startDate, endDate) {
-
     let currentDate = new Date();
     currentDate.setHours(currentDate.getHours() + 2);
 
     return currentDate > startDate && currentDate < endDate;
 }
 
-exports.RoomAvailabilityFrom = function (uservailability, roomMeta) {
+function checkTitleForReplacments(title) {
+    let titleStr = title;
+    for (let id in staticReplaceJSON.replacement_tag) {
+        if (staticReplaceJSON.replacement_tag.hasOwnProperty(id) && (titleStr.includes(staticReplaceJSON.replacement_tag[id].key))) {
+            titleStr = staticReplaceJSON.replacement_tag[id].newTitle;
+            break;
+        }
+    }
+    return titleStr;
+}
 
+
+exports.RoomAvailabilityFrom = function (uservailability, roomMeta) {
     let appointments = [];
 
-    let lastEndDate = new Date();                     // today
-    lastEndDate.setHours(7);                          // working hours start
-    lastEndDate.setMinutes(0);
-    lastEndDate.setSeconds(0);
-    lastEndDate.setMilliseconds(0);
-    lastEndDate.setHours(lastEndDate.getHours() + 2); // timezone fix!
-
-    let endWorkingDate = new Date();                  // today
-    endWorkingDate.setHours(19);                      // working hours end
-    endWorkingDate.setMinutes(0);
-    endWorkingDate.setSeconds(0);
-    endWorkingDate.setMilliseconds(0);
-    endWorkingDate.setHours(endWorkingDate.getHours() + 2);
+    let lastEndDate = createTimeObject(myconfig.workStart);
+    let endWorkingDate = createTimeObject(myconfig.workEnd);
 
     uservailability.attendeesAvailability.responses[0].calendarEvents.forEach(function (event) {
 
         // add free slot before appointment (if neccessary)
         let currentStartDate = new Date(event.startTime.originalDateInput);
         if (currentStartDate.getTime() > lastEndDate.getTime()) {
-            let freeAppointment = {
-                startTime: lastEndDate,
-                endTime: event.startTime.originalDateInput,
-                displayTime: FormatDisplayDates(lastEndDate, new Date(event.startTime.originalDateInput)),
-                title: "Frei",
-                blocked: false,
-                isCurrent: isCurrentAppointment(new Date(lastEndDate), new Date(event.startTime.originalDateInput))
-            };
-            appointments.push(freeAppointment)
+            appointments.push(createFreeAppointment(lastEndDate, new Date(event.startTime.originalDateInput)));
         }
 
         // add appointment
-        let titleStr = event.details.subject;
-        for (let id in staticReplaceJSON.replacement_tag) {
-            if (staticReplaceJSON.replacement_tag.hasOwnProperty(id) && (titleStr.includes(staticReplaceJSON.replacement_tag[id].key))) {
-                titleStr = staticReplaceJSON.replacement_tag[id].newTitle;
-                break;
-            }
-        }
+        let user = ExtractFormatedName(event.details.subject);
+        let title = ExtractTitle(event.details.subject, user);
         let appointment = {
             startTime: event.startTime.originalDateInput,
             endTime: event.endTime.originalDateInput,
             displayTime: FormatDisplayDates(new Date(event.startTime.originalDateInput), new Date(event.endTime.originalDateInput)),
-            title: titleStr,
+            user: user,
+            title: checkTitleForReplacments(title),
             blocked: true,
             isCurrent: isCurrentAppointment(new Date(event.startTime.originalDateInput), new Date(event.endTime.originalDateInput))
         };
@@ -68,38 +80,58 @@ exports.RoomAvailabilityFrom = function (uservailability, roomMeta) {
 
     // add free slot at the end (if neccessary)
     if (lastEndDate.getTime() < endWorkingDate.getTime()) {
-        let freeAppointment = {
-            startTime: lastEndDate,
-            endTime: endWorkingDate,
-            displayTime: FormatDisplayDates(lastEndDate, endWorkingDate),
-            title: "Frei",
-            blocked: false,
-            isCurrent: isCurrentAppointment(new Date(lastEndDate), new Date(endWorkingDate))
-        };
-        appointments.push(freeAppointment)
+        appointments.push(createFreeAppointment(lastEndDate, endWorkingDate));
     }
-
-    let currentDate = new Date();
-    currentDate.setHours(currentDate.getHours());
-    let formattedTimeString = currentDate.getHours() + ":" + currentDate.getMinutes();
 
     return {
         roomName: roomMeta.room,
-        currentTime: formattedTimeString,
+        currentTime: FormattedCurrentTime,
         appointments: appointments
     };
 };
 
+/**
+ * @return {string}
+ */
 FormatDisplayDates = function (startDate, endDate) {
     let formattedStart = FormattedHours(startDate) + ':' + FormattedMinutes(startDate);
     let formattedEnd = FormattedHours(endDate) + ':' + FormattedMinutes(endDate);
     return formattedStart + ' bis ' + formattedEnd;
 };
 
+/**
+ * @return {string}
+ */
 FormattedHours = function (date) {
     return date.getHours() - 2 < 10 ? "0" + date.getHours() - 2 : date.getHours() - 2;
 };
 
+/**
+ * @return {string}
+ */
 FormattedMinutes = function (date) {
     return date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+};
+
+/**
+ * @return {string}
+ */
+FormattedCurrentTime = function () {
+    let currentDate = new Date();
+    currentDate.setHours(currentDate.getHours());
+    return currentDate.getHours() + ":" + currentDate.getMinutes();
+};
+
+/**
+ * @return {string}
+ */
+ExtractFormatedName = function (title) {
+    let match = title.match(/^[A-Z]+, [A-Z]+/i);
+    if (match == null) return "";
+    return match[0];
+};
+
+ExtractTitle = function (title, user) {
+    if (user === "") return title;
+    return title.substr(user.length+1);
 };

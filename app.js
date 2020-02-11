@@ -1,21 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
-var winston = require('./config/winston');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let morgan = require('morgan');
+let winston = require('./config/winston');
 
-var indexRouter = require('./routes/index');
-var roomsRouter = require('./routes/rooms');
-var metaTypesRouter = require('./routes/metaTypes');
+let indexRouter = require('./routes/index');
+let roomsRouter = require('./routes/rooms');
+let metaTypesRouter = require('./routes/metaTypes');
 
-const {DateTime} = require("ews-javascript-api");
-var cras = require('./public/javascripts/cras');
-var exchConn = require('./public/javascripts/exchangeConnector');
-var app = express();
+let cras = require('./public/javascripts/cras');
+let app = express();
+let cors = require('cors');
 
-const {loggers} = require('winston')
-const logger = loggers.get('appLogger');
+//const {loggers} = require('winston')
+//const logger = loggers.get('appLogger');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +26,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var cors = require('cors');
 // use it before all route definitions
 app.use(cors({origin: '*'}));
 
@@ -41,6 +39,7 @@ app.use(function (req, res, next) {
 });
 
 // error handler
+// noinspection JSUnusedLocalSymbols
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;

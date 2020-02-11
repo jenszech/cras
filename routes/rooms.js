@@ -9,10 +9,9 @@ let roomMetaProvider = require('../public/javascripts/roomMetaProvider');
 let ews = require('ews-javascript-api');
 
 const config = require('config');
+// noinspection JSUnresolvedFunction
 let myconfig = config.get('cras.mainSetting');
 
-//const DEFAULT_ROOM_USER = "V_TDE_B_Raumliste@tde.thalia.de";
-//const DEFAULT_ROOM_USER = "V_TDE_B_Raumliste@tde.thalia.de";
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -26,7 +25,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
     let id = req.params.id;
-
     let attendee = [new ews.AttendeeInfo(id)];
     exchConn.GetUserAvailability(attendee)
         .then(function (availabilityResponse) {
