@@ -7,12 +7,9 @@ let myconfig = config.get('cras.mainSetting');
 
 function createTimeObject(hour) {
     let timeObj = new Date();
-    logger.debug('Time ' + hour + ' -> '  + timeObj);
     timeObj. setHours(hour,0,0,0);
-    logger.debug('Time ' + timeObj);
     // timezone fix!
     timeObj.setHours(timeObj.getHours() + 2);
-    logger.debug('Time ' + timeObj);
     return timeObj;
 }
 
