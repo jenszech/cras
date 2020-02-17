@@ -1,10 +1,10 @@
 {
   "name": "cras",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/cras",
-    "deploy": "pm2 restart"
+    "deploy": "pm2 restart cras"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",

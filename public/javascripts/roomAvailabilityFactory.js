@@ -1,5 +1,5 @@
-//const { loggers } = require('winston');
-//const logger = loggers.get('appLogger');
+const { loggers } = require('winston');
+const logger = loggers.get('appLogger');
 const staticReplaceJSON = require('../../config/title_replacement.json');
 const config = require('config');
 // noinspection JSUnresolvedFunction
@@ -51,6 +51,8 @@ exports.RoomAvailabilityFrom = function (uservailability, roomMeta) {
 
     let lastEndDate = createTimeObject(myconfig.workStart);
     let endWorkingDate = createTimeObject(myconfig.workEnd);
+
+    logger.debug('RoomAvailabilityFrom - Search between ' +lastEndDate + ' to ' + endWorkingDate);
 
     uservailability.attendeesAvailability.responses[0].calendarEvents.forEach(function (event) {
 
