@@ -3,6 +3,13 @@
 * 
 
 ## Changelog
+### 0.2.1
+* add more logging
+
+### 0.2.0
+* Add title replacmenent for diffentrent key words
+* remove configs from git and add examples
+* source code cleanup 
 
 ### 0.1.0
 * Ready API für room request
