@@ -35,6 +35,15 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
+router.put('/:id', function (req, res, next) {
+    let id = req.params.id;
+    let start = req.query.start;
+    let duration = parseInt(req.query.duration);
+    let roomName = req.query.room;
+    exchConn.CreateAppointment(id, roomName, start, duration);
+    res.send('booked');
+});
+
 router.get('/:id/meta', function (req, res, next) {
     let id = req.params.id;
     res.json(roomMetaProvider.GetRoomMetaForId(id));

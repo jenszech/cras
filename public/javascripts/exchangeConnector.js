@@ -66,32 +66,21 @@ exports.FindAppointments = function (start, end) {
 };
 
 
-exports.CreateAppointment = function (roomId, roomName) {
-
-    let lastEndDate = new Date();                     // today
-    lastEndDate.setHours(15);                          // working hours start
-    lastEndDate.setMinutes(0);
-    lastEndDate.setSeconds(0);
-    lastEndDate.setMilliseconds(0);
-    lastEndDate.setHours(lastEndDate.getHours() + 2); // timezone fix!
-    let endWorkingDate = new Date();                  // today
-    endWorkingDate.setHours(16);                      // working hours end
-    endWorkingDate.setMinutes(0);
-    endWorkingDate.setSeconds(0);
-    endWorkingDate.setMilliseconds(0);
-    endWorkingDate.setHours(endWorkingDate.getHours() + 2);
-
+exports.CreateAppointment = function (roomId, roomName, start, duration) {
     let appointment = new ews.Appointment(exch);
 
     appointment.Subject = "Besprechung-Blocker";
     appointment.Body = new ews.TextBody("Dies ist ein Blocker, für eine Besprechung, der direkt Vor-Ort eingestellt wurde.");
-    appointment.Start = new ews.DateTime("20190618T160000");
-    appointment.End = appointment.Start.Add(1, "h");
+    appointment.Start = new ews.DateTime(start);
+    appointment.End = new ews.DateTime(start);
+    appointment.End = appointment.End.Add(duration, "minute");
     appointment.Location = roomName;
     appointment.RequiredAttendees.Add(roomId);
+//    appointment.Location = "R_TDE_B_Johannes Gutenberg_2.OG";
+//    appointment.RequiredAttendees.Add("Raum_Gutenberg@tde.thalia.de");
 
     appointment.Save(ews.SendInvitationsMode.SendToAllAndSaveCopy).then(function () {
-        logger.debug("done - check email");
+        logger.debug("done - check email - "+appointment.Start.toString() + " - "+appointment.End.toString());
     }, function (error) {
         logger.debug(error);
     });
