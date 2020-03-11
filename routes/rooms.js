@@ -41,7 +41,7 @@ router.put('/:id', function (req, res, next) {
     let duration = parseInt(req.query.duration);
     let roomName = req.query.room;
     exchConn.CreateAppointment(id, roomName, start, duration);
-    res.send('booked');
+    res.send({booked: true});
 });
 
 router.get('/:id/meta', function (req, res, next) {

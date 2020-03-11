@@ -76,9 +76,6 @@ exports.CreateAppointment = function (roomId, roomName, start, duration) {
     appointment.End = appointment.End.Add(duration, "minute");
     appointment.Location = roomName;
     appointment.RequiredAttendees.Add(roomId);
-//    appointment.Location = "R_TDE_B_Johannes Gutenberg_2.OG";
-//    appointment.RequiredAttendees.Add("Raum_Gutenberg@tde.thalia.de");
-
     appointment.Save(ews.SendInvitationsMode.SendToAllAndSaveCopy).then(function () {
         logger.debug("done - check email - "+appointment.Start.toString() + " - "+appointment.End.toString());
     }, function (error) {
