@@ -3,6 +3,10 @@
 * 
 
 ## Changelog
+### 0.2.2
+* Add booking endpoint
+* source code cleanup
+
 ### 0.2.1
 * add more logging
 

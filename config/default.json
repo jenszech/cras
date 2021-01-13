@@ -6,8 +6,7 @@
       "default_room_user": "example@mail.com",
       "workStart": 7,
       "workEnd": 19
-    }
-  },
+    },
     "exchange": {
       "url": "<INSERT URL>",
       "user": "<INSERT USERNAME>",
