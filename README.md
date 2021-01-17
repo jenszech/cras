@@ -1,11 +1,10 @@
-# cras
-Conference room assisting system
+# CRAS - <ins>C</ins>onference <ins>R</ins>oom <ins>A</ins>ssisting <ins>S</ins>ystem
 
 Dieses Projekt stellt einen Node.js Server bereit der alle Daten für ein Konferenzraum Anzeigesystem verwaltet
 
 Das Projekt setzt sich dabei aus mehreren Modulen zusammen:
 * **cras** - Dieses Projekt stellt das Backend bereit
-* **[kras](https://github.com/julienP88/kras)** - Ein responsives Angular Frontend
+* **[crasUI](https://github.com/jenszech/crasui)** - Ein responsives Angular Frontend
 * Optional **[crasBadgeIt](https://github.com/jenszech/crasBadgeIt)** - Ein microcontroller projekt for small ePaper devices
 * Optional **[crasAndroidViewer](https://github.com/jenszech/crasAndroidViewer)** - Eine Android App mit einem einfachem fullscreen Webviewer
 
@@ -62,6 +61,14 @@ die folgende Zeile hinzuggefügt werden
 NODE_ENV=prod
 ```
 
+#### Einrichten eines ssl Zertifikats
+Eigenes Zertifikat erstellen
+```
+openssl req -x509 -newkey rsa:2048 -keyout keytmp.pem -out cert.pem -days 365
+openssl rsa -in keytmp.pem -out key.pem
+```
+Die beiden Dateien cert.pem und key.pem müssen unter ./config/cert liegen.  
+
 #### Test ####
 Wenn alles erfolgreich war ist http://<YOUR IP>:3000 das WebInterface erreichbar.
 
@@ -79,7 +86,10 @@ Die Environment Konfiguration enthalten dagegen alle lokalen Anpassungen inkl. P
   "cras": {
     "mainSetting": {
       "env": "default",
-      "port": "3001"
+      "port": "3001",
+      "default_room_user": "example@mail.com",
+      "workStart": 7,
+      "workEnd": 19
     },
     "exchange": {
       "url": "<INSERT URL>",
@@ -96,6 +106,7 @@ Die Environment Konfiguration enthalten dagegen alle lokalen Anpassungen inkl. P
     "cras": {
       "mainSetting": {
         "env": "prod",
+        "default_room_user": "user@domain.de"
       }
     }
 }
@@ -123,6 +134,17 @@ git pull
 pm2 restart cras
 ```
 
+### Entwicklung
+
+### Sourcecode formating
+```
+npm run format && npm run lint
+```
+
+### Release a new version
+```
+npm version major|minor|patch
+```
 
 ## Built With
 

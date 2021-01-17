@@ -3,6 +3,9 @@
 * 
 
 ## Changelog
+### 0.3.0
+* dependency update
+ 
 ### 0.2.2
 * Add booking endpoint
 * source code cleanup
