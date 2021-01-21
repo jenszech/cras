@@ -3,6 +3,18 @@
 * 
 
 ## Changelog
+### 0.3.2
+* project and git cleanup
+
+### 0.3.1
+* Add first authentication api implementation
+* Add lint and prettier
+* Add version update scripts
+* Add ssl / https option
+
+### 0.3.0
+* dependency update
+ 
 ### 0.2.2
 * Add booking endpoint
 * source code cleanup

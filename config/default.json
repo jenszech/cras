@@ -3,6 +3,7 @@
     "mainSetting": {
       "env": "default",
       "port": "3001",
+      "enableSSL": true,
       "default_room_user": "example@mail.com",
       "workStart": 7,
       "workEnd": 19

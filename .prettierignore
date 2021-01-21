@@ -1,0 +1,10 @@
+# Ignore artifacts:
+build
+coverage
+node_modules
+
+# Ignore all files:
+.eslintrc.json
+.prettierrc
+*.md
+*.hbs

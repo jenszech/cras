@@ -1,24 +1,47 @@
 {
   "name": "cras",
-  "version": "0.2.2",
+  "version": "0.3.2",
   "private": true,
   "scripts": {
     "start": "node ./bin/cras",
-    "deploy": "pm2 restart cras"
+    "deploy": "pm2 restart cras",
+    "format": "prettier --write .",
+    "lint": "eslint \"**/*.js\"",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags && npm run build && npm run format"
   },
   "dependencies": {
+    "@types/passport": "^1.0.5",
+    "@types/passport-local": "^1.0.33",
     "app-root-path": "^3.0.0",
-    "config": "^3.2.5",
-    "cookie-parser": "~1.4.4",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.3",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "date-and-time": "^0.12.0",
-    "debug": "~4.1.1",
-    "ews-javascript-api": "^0.10.0",
+    "date-and-time": "^0.14.2",
+    "debug": "~4.3.1",
+    "ews-javascript-api": "^0.10.3",
     "ews-javascript-api-auth": "^1.2.1",
     "express": "~4.17.1",
-    "hbs": "~4.1.0",
-    "http-errors": "~1.7.3",
-    "morgan": "~1.9.1",
-    "winston": "^3.2.1"
+    "express-jwt": "^6.0.0",
+    "express-session": "^1.17.1",
+    "hbs": "~4.1.1",
+    "http-errors": "~1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "~1.10.0",
+    "passport": "^0.4.1",
+    "passport-ldapauth": "^3.0.1",
+    "passport-local": "^1.0.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "prettier": "^2.2.1"
   }
 }

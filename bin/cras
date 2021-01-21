@@ -3,38 +3,58 @@
 /**
  * Module dependencies.
  */
-
-let app = require('../app');
-let debug = require('debug')('cras:server');
-let http = require('http');
+const app = require('../app');
+const debug = require('debug')('cras:server');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+let server = null;
 
 const config = require('config');
-let myconfig = config.get('cras.mainSetting');
+const myconfig = config.get('cras.mainSetting');
+const { loggers } = require('winston');
+const logger = loggers.get('appLogger');
 
 /**
  * Get port from environment and store in Express.
  */
-let port = normalizePort(process.env.PORT || myconfig.port);
+const port = normalizePort(process.env.PORT || myconfig.port);
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-
-let server = http.createServer(app);
+if (myconfig.enableSSL) {
+  if (fs.existsSync('./config/cert/key.pem') && fs.existsSync('./config/cert/cert.pem')) {
+    const key = fs.readFileSync('./config/cert/key.pem');
+    const cert = fs.readFileSync('./config/cert/cert.pem');
+    server = https.createServer({ key: key, cert: cert }, app);
+  } else {
+    logger.error('Kein Zertifikat gefunden');
+  }
+} else {
+  server = http.createServer(app);
+}
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+if (server === null) {
+  logger.error('Server konnte nicht gestartet werden.');
+} else {
+  server.listen(port, () => {
+        const addr = server.address();
+        const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+        logger.debug('Listening on ' + bind + ' (SSL:' + myconfig.enableSSL + ')');
+      }
+  );
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
 
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   let port = parseInt(val, 10);
 
@@ -54,15 +74,12 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -82,11 +99,8 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
