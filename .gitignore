@@ -7,3 +7,4 @@ roommeta.json
 config/cert/cert.pem
 config/cert/key.pem
 config/cert/keytmp.pem
+user.json

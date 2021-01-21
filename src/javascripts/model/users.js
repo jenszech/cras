@@ -45,5 +45,29 @@ class User {
       expire: this.token_expire,
     };
   }
+
+  toJSON() {
+    return {
+      id: this.id,
+      email: this.email,
+      salt: this.salt,
+      hash: this.hash
+    };
+  }
+  toIdJSON(){
+    return {
+      id: this.id,
+      email: this.email,
+    };
+  }
+
+
+  static fromJSON(user) {
+    const newUser = new User(user.id, user.email);
+    newUser.salt = user.salt;
+    newUser.hash = user.hash;
+    return newUser;
+  }
+
 }
 module.exports = User;
