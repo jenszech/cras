@@ -13,12 +13,6 @@ const loginRouter = require('./routes/login');
 const cras = require('./src/javascripts/cras');
 const app = express();
 const cors = require('cors');
-// const {loggers} = require('winston')
-// const logger = loggers.get('appLogger');
-
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded());
-app.use(require('express-session')({ secret: 'top secret', resave: false, saveUninitialized: false }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,21 +24,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({ origin: '*' }));
-
-// https://www.freecodecamp.org/news/learn-how-to-handle-authentication-with-node-using-passport-js-4a56ed18e81e/
-
-// ---
-const User = require('./src/javascripts/model/users');
-const map = require('./src/javascripts/model/usersMap');
-const user1 = new User(1, 'j.zech@thalia.de');
-user1.setPassword('test123');
-const user2 = new User(2, 'Conny');
-user2.setPassword('Test456');
-map.updateMap(user1);
-map.updateMap(user2);
-console.log(user1.id + ' ' + user1.email + ' ' + user1.validatePassword('Test123') + '\n' + user1.hash);
-console.log(user2.id + ' ' + user2.email + ' ' + user2.validatePassword('Test456'));
-
 
 // ---
 app.use('/api/', indexRouter);
